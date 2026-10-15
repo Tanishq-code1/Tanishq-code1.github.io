@@ -1,7 +1,7 @@
 {
-  "name": "devhq-portfolio",
+  "name": "tanishq-kale-portfolio",
   "version": "1.0.0",
-  "description": "DevHQ Personal Portfolio Website by Aakarsh Bibhaw",
+  "description": "DevHQ Personal Portfolio Website for Tanishq Kale - AI Engineer & CSE Undergrad",
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,15 +9,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arshbibhaw/DevHQ-Personal-Portfolio-Website.git"
+    "url": "git+https://github.com/Tanishq-code1/portfolio.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "portfolio",
+    "ai-engineer",
+    "langchain",
+    "langgraph",
+    "rag",
+    "fastapi",
+    "python"
+  ],
+  "author": "Tanishq Kale <tanishqkale007@gmail.com>",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/arshbibhaw/DevHQ-Personal-Portfolio-Website/issues"
-  },
-  "homepage": "https://github.com/arshbibhaw/DevHQ-Personal-Portfolio-Website#readme",
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0"

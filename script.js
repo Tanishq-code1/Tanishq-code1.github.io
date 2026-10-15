@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollElements.forEach(el => observer.observe(el));
 
     const typingText = document.getElementById('typing-text');
-    const words = ["DEVELOPER", "DESIGNER", "PROGRAMMER", "WRITER", "CODER"];
+    const words = ["AI ENGINEER", "BACKEND DEVELOPER", "LLM ARCHITECT", "SYSTEMS BUILDER", "CODER"];
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
@@ -228,17 +228,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         contactForm.reset();
                         if (window.soundSystem) window.soundSystem.playSuccess();
                     } else {
-
-                        btn.innerHTML = '<span>Error, Please Retry!</span> <i class="fa-solid fa-triangle-exclamation"></i>';
-                        btn.style.background = 'linear-gradient(90deg, #ef4444, #dc2626, #ef4444)';
-                        if (window.soundSystem) window.soundSystem.playError();
+                        btn.innerHTML = '<span>Launching Email App...</span> <i class="fa-solid fa-envelope"></i>';
+                        btn.style.background = 'linear-gradient(90deg, #a855f7, #7c3aed, #a855f7)';
+                        window.location.href = `mailto:tanishqkale007@gmail.com?subject=Portfolio%20Message%20from%20${encodeURIComponent(object.name || 'Visitor')}&body=${encodeURIComponent((object.message || '') + '\n\nFrom: ' + (object.name || '') + ' (' + (object.email || '') + ')')}`;
                     }
                 })
                 .catch(error => {
-
-                    btn.innerHTML = '<span>Error!</span> <i class="fa-solid fa-triangle-exclamation"></i>';
-                    btn.style.background = 'linear-gradient(90deg, #ef4444, #dc2626, #ef4444)';
-                    if (window.soundSystem) window.soundSystem.playError();
+                    btn.innerHTML = '<span>Launching Email App...</span> <i class="fa-solid fa-envelope"></i>';
+                    btn.style.background = 'linear-gradient(90deg, #a855f7, #7c3aed, #a855f7)';
+                    window.location.href = `mailto:tanishqkale007@gmail.com?subject=Portfolio%20Message%20from%20${encodeURIComponent(object.name || 'Visitor')}&body=${encodeURIComponent((object.message || '') + '\n\nFrom: ' + (object.name || '') + ' (' + (object.email || '') + ')')}`;
                 })
                 .finally(() => {
 

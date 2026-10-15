@@ -6,11 +6,11 @@ module.exports = async function handler(req, res) {
   }
 
   const resendApiKey = process.env.RESEND_API_KEY;
-  const receiverEmail = process.env.RECEIVER_EMAIL;
+  const receiverEmail = process.env.RECEIVER_EMAIL || 'tanishqkale007@gmail.com';
 
-  if (!resendApiKey || !receiverEmail) {
+  if (!resendApiKey) {
     return res.status(500).json({
-      message: 'Server Configuration Error: Missing RESEND_API_KEY or RECEIVER_EMAIL'
+      message: 'Server Configuration Error: Missing RESEND_API_KEY. Configure RESEND_API_KEY in environment variables.'
     });
   }
 
