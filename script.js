@@ -257,10 +257,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const footerResumeBtn = document.getElementById('footerResumeBtn');
 
     if (resumeModal && closeResumeBtn) {
+        const docContainer = document.getElementById('resumeDocContainer');
+
         const openModal = (e) => {
             if (e) e.preventDefault();
             resumeModal.classList.add('show');
             document.body.style.overflow = 'hidden';
+            if (docContainer) {
+                docContainer.scrollTop = 0;
+            }
         };
 
         const closeModal = () => {
@@ -274,6 +279,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         resumeModal.addEventListener('click', (e) => {
             if (e.target === resumeModal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && resumeModal.classList.contains('show')) {
                 closeModal();
             }
         });
