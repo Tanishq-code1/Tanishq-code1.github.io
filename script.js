@@ -251,44 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const resumeModal = document.getElementById('resumeModal');
-    const openResumeBtn = document.getElementById('openResumeBtn');
-    const closeResumeBtn = document.getElementById('closeResumeBtn');
-    const footerResumeBtn = document.getElementById('footerResumeBtn');
 
-    if (resumeModal && closeResumeBtn) {
-        const docContainer = document.getElementById('resumeDocContainer');
-
-        const openModal = (e) => {
-            if (e) e.preventDefault();
-            resumeModal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-            if (docContainer) {
-                docContainer.scrollTop = 0;
-            }
-        };
-
-        const closeModal = () => {
-            resumeModal.classList.remove('show');
-            document.body.style.overflow = 'auto';
-        };
-
-        if (openResumeBtn) openResumeBtn.addEventListener('click', openModal);
-        if (footerResumeBtn) footerResumeBtn.addEventListener('click', openModal);
-        closeResumeBtn.addEventListener('click', closeModal);
-
-        resumeModal.addEventListener('click', (e) => {
-            if (e.target === resumeModal) {
-                closeModal();
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && resumeModal.classList.contains('show')) {
-                closeModal();
-            }
-        });
-    }
 
     // ── Interactive Skill Filtering ──
     const filterBtns = document.querySelectorAll('.filter-btn');
