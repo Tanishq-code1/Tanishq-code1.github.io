@@ -229,13 +229,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (window.soundSystem) window.soundSystem.playSuccess();
                     } else {
                         btn.innerHTML = '<span>Launching Email App...</span> <i class="fa-solid fa-envelope"></i>';
-                        btn.style.background = 'linear-gradient(90deg, #a855f7, #7c3aed, #a855f7)';
+                        btn.style.background = 'linear-gradient(90deg, #36C9B4, #168F80, #36C9B4)';
                         window.location.href = `mailto:tanishqkale007@gmail.com?subject=Portfolio%20Message%20from%20${encodeURIComponent(object.name || 'Visitor')}&body=${encodeURIComponent((object.message || '') + '\n\nFrom: ' + (object.name || '') + ' (' + (object.email || '') + ')')}`;
                     }
                 })
                 .catch(error => {
                     btn.innerHTML = '<span>Launching Email App...</span> <i class="fa-solid fa-envelope"></i>';
-                    btn.style.background = 'linear-gradient(90deg, #a855f7, #7c3aed, #a855f7)';
+                    btn.style.background = 'linear-gradient(90deg, #36C9B4, #168F80, #36C9B4)';
                     window.location.href = `mailto:tanishqkale007@gmail.com?subject=Portfolio%20Message%20from%20${encodeURIComponent(object.name || 'Visitor')}&body=${encodeURIComponent((object.message || '') + '\n\nFrom: ' + (object.name || '') + ' (' + (object.email || '') + ')')}`;
                 })
                 .finally(() => {
