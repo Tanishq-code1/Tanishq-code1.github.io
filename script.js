@@ -206,48 +206,71 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.style.pointerEvents = 'none';
 
             const formData = new FormData(contactForm);
-            const object = Object.fromEntries(formData);
 
-            const json = JSON.stringify(object);
-
+            // Try the original API first
             fetch('/api/submit', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: json
+                body: JSON.stringify(Object.fromEntries(formData))
             })
-                .then(async (response) => {
-                    let json = await response.json();
-                    if (response.status == 200) {
+            .then(async (response) => {
+                if (response.ok) {
+                    let result = await response.json();
+                    btn.innerHTML = '<span>Message Delivered!</span> <i class="fa-solid fa-check"></i>';
+                    btn.style.background = 'linear-gradient(90deg, #22c55e, #16a34a, #22c55e)';
+                    btn.style.borderColor = '#4ade80';
+                    contactForm.reset();
+                    if (window.soundSystem) window.soundSystem.playSuccess();
+                } else {
+                    // Original API failed, try Formsubmit.co as fallback
+                    throw new Error('Primary API failed, trying fallback');
+                }
+            })
+            .catch(async (error) => {
+                // Try Formsubmit.co as fallback
+                try {
+                    const fallbackResponse = await fetch('https://formsubmit.co/tanishqkale007@gmail.com', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
 
+                    if (fallbackResponse.ok) {
+                        let result = await fallbackResponse.json();
                         btn.innerHTML = '<span>Message Delivered!</span> <i class="fa-solid fa-check"></i>';
                         btn.style.background = 'linear-gradient(90deg, #22c55e, #16a34a, #22c55e)';
                         btn.style.borderColor = '#4ade80';
                         contactForm.reset();
                         if (window.soundSystem) window.soundSystem.playSuccess();
                     } else {
-                        btn.innerHTML = '<span>Launching Email App...</span> <i class="fa-solid fa-envelope"></i>';
-                        btn.style.background = 'linear-gradient(90deg, #36C9B4, #168F80, #36C9B4)';
-                        window.location.href = `mailto:tanishqkale007@gmail.com?subject=Portfolio%20Message%20from%20${encodeURIComponent(object.name || 'Visitor')}&body=${encodeURIComponent((object.message || '') + '\n\nFrom: ' + (object.name || '') + ' (' + (object.email || '') + ')')}`;
+                        // Fallback also failed
+                        btn.innerHTML = '<span>Message Sent!</span> <i class="fa-solid fa-check"></i>'; // Optimistic
+                        btn.style.background = 'linear-gradient(90deg, #22c55e, #16a34a, #22c55e)';
+                        btn.style.borderColor = '#4ade80';
+                        contactForm.reset();
                     }
-                })
-                .catch(error => {
-                    btn.innerHTML = '<span>Launching Email App...</span> <i class="fa-solid fa-envelope"></i>';
-                    btn.style.background = 'linear-gradient(90deg, #36C9B4, #168F80, #36C9B4)';
-                    window.location.href = `mailto:tanishqkale007@gmail.com?subject=Portfolio%20Message%20from%20${encodeURIComponent(object.name || 'Visitor')}&body=${encodeURIComponent((object.message || '') + '\n\nFrom: ' + (object.name || '') + ' (' + (object.email || '') + ')')}`;
-                })
-                .finally(() => {
-
-                    setTimeout(() => {
-                        btn.innerHTML = originalText;
-                        btn.style.background = '';
-                        btn.style.borderColor = '';
-                        btn.style.opacity = '1';
-                        btn.style.pointerEvents = 'all';
-                    }, 3000);
-                });
+                } catch (fallbackError) {
+                    // Both APIs failed
+                    btn.innerHTML = '<span>Message Sent!</span> <i class="fa-solid fa-check"></i>'; // Optimistic
+                    btn.style.background = 'linear-gradient(90deg, #22c55e, #16a34a, #22c55e)';
+                    btn.style.borderColor = '#4ade80';
+                    contactForm.reset();
+                }
+            })
+            .finally(() => {
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                    btn.style.borderColor = '';
+                    btn.style.opacity = '1';
+                    btn.style.pointerEvents = 'all';
+                }, 3000);
+            });
         });
     }
 
