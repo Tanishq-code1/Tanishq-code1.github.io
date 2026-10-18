@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const formData = new FormData(contactForm);
 
-            // Try the original API first
+            // Try the primary API first
             fetch('/api/submit', {
                 method: 'POST',
                 headers: {
@@ -218,60 +218,75 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(async (response) => {
                 if (response.ok) {
-                    let result = await response.json();
-                    btn.innerHTML = '<span>Message Delivered!</span> <i class="fa-solid fa-check"></i>';
-                    btn.style.background = 'linear-gradient(90deg, #22c55e, #16a34a, #22c55e)';
-                    btn.style.borderColor = '#4ade80';
-                    contactForm.reset();
-                    if (window.soundSystem) window.soundSystem.playSuccess();
-                } else {
-                    // Original API failed, try Formsubmit.co as fallback
-                    throw new Error('Primary API failed, trying fallback');
-                }
-            })
-            .catch(async (error) => {
-                // Try Formsubmit.co as fallback
-                try {
-                    const fallbackResponse = await fetch('https://formsubmit.co/79542f66e7e071df96fbfa2c3f09fc73', {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    });
-
-                    if (fallbackResponse.ok) {
-                        let result = await fallbackResponse.json();
-                        btn.innerHTML = '<span>Message Delivered!</span> <i class="fa-solid fa-check"></i>';
-                        btn.style.background = 'linear-gradient(90deg, #22c55e, #16a34a, #22c55e)';
-                        btn.style.borderColor = '#4ade80';
-                        contactForm.reset();
-                        if (window.soundSystem) window.soundSystem.playSuccess();
-                    } else {
-                        // Fallback also failed
-                        btn.innerHTML = '<span>Message Sent!</span> <i class="fa-solid fa-check"></i>'; // Optimistic
-                        btn.style.background = 'linear-gradient(90deg, #22c55e, #16a34a, #22c55e)';
-                        btn.style.borderColor = '#4ade80';
-                        contactForm.reset();
+                    const result = await response.json();
+                    if (result.success) {
+                        return showSuccess(btn, contactForm, originalText);
                     }
-                } catch (fallbackError) {
-                    // Both APIs failed
-                    btn.innerHTML = '<span>Message Sent!</span> <i class="fa-solid fa-check"></i>'; // Optimistic
-                    btn.style.background = 'linear-gradient(90deg, #22c55e, #16a34a, #22c55e)';
-                    btn.style.borderColor = '#4ade80';
-                    contactForm.reset();
                 }
+                // If primary API fails or returns non-success, fallback to FormSubmit
+                return fallbackToFormSubmit(formData, btn, contactForm, originalText);
             })
-            .finally(() => {
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.style.background = '';
-                    btn.style.borderColor = '';
-                    btn.style.opacity = '1';
-                    btn.style.pointerEvents = 'all';
-                }, 3000);
+            .catch((error) => {
+                // Primary API failed (network error, etc.)
+                return fallbackToFormSubmit(formData, btn, contactForm, originalText);
             });
         });
+    }
+
+    function showSuccess(btn, form, originalText) {
+        btn.innerHTML = '<span>Message Delivered!</span> <i class="fa-solid fa-check"></i>';
+        btn.style.background = 'linear-gradient(90deg, #22c55e, #16a34a, #22c55e)';
+        btn.style.borderColor = '#4ade80';
+        form.reset();
+        if (window.soundSystem) window.soundSystem.playSuccess();
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.style.background = '';
+            btn.style.borderColor = '';
+            btn.style.opacity = '1';
+            btn.style.pointerEvents = 'all';
+        }, 3000);
+    }
+
+    function showError(btn, form, originalText, message) {
+        if (message === undefined) message = 'Failed to send message';
+        btn.innerHTML = '<span>' + message + '</span> <i class="fa-solid fa-xmark"></i>';
+        btn.style.background = 'linear-gradient(90deg, #ef4444, #dc2626, #ef4444)';
+        btn.style.borderColor = '#f87171';
+        form.reset();
+        if (window.soundSystem) window.soundSystem.playError();
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.style.background = '';
+            btn.style.borderColor = '';
+            btn.style.opacity = '1';
+            btn.style.pointerEvents = 'all';
+        }, 3000);
+    }
+
+    async function fallbackToFormSubmit(formData, btn, form, originalText) {
+        try {
+            const fallbackResponse = await fetch('https://formsubmit.co/79542f66e7e071df96fbfa2c3f09fc73', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            const contentType = fallbackResponse.headers.get('content-type') || '';
+            if (fallbackResponse.ok && contentType.includes('application/json')) {
+                const result = await fallbackResponse.json();
+                if (result.success) {
+                    return showSuccess(btn, form, originalText);
+                }
+            }
+            // If we get here, either not ok, not JSON, or not success
+            throw new Error('FormSubmit submission failed');
+        } catch (fallbackError) {
+            // Fallback failed or indicated failure via response
+            showError(btn, form, originalText, 'Failed to send message via FormSubmit');
+        }
     }
 
 
