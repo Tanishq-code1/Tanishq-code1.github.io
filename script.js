@@ -6,6 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
         threshold: 0.3
     };
 
+    // EmailJS configuration (replace with your own)
+    const EMAILJS_SERVICE_ID = 'service_yx5in41';
+    const EMAILJS_TEMPLATE_ID = 'template_gu23i3u';
+    const EMAILJS_USER_ID = '6pZRifn23ZnFy1di0';
+
+    // Initialize EmailJS
+    emailjs.init(EMAILJS_USER_ID);
+
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -205,31 +213,14 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.style.opacity = '0.7';
             btn.style.pointerEvents = 'none';
 
-            const formData = new FormData(contactForm);
-
-            // Try the primary API first
-            fetch('/api/submit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(Object.fromEntries(formData))
-            })
-            .then(async (response) => {
-                if (response.ok) {
-                    const result = await response.json();
-                    if (result.success) {
-                        return showSuccess(btn, contactForm, originalText);
-                    }
-                }
-                // If primary API fails or returns non-success, fallback to FormSubmit
-                return fallbackToFormSubmit(formData, btn, contactForm, originalText);
-            })
-            .catch((error) => {
-                // Primary API failed (network error, etc.)
-                return fallbackToFormSubmit(formData, btn, contactForm, originalText);
-            });
+            // Send email using EmailJS
+            emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, contactForm)
+                .then(() => {
+                    showSuccess(btn, contactForm, originalText);
+                })
+                .catch((error) => {
+                    showError(btn, contactForm, originalText, 'Failed to send message via EmailJS');
+                });
         });
     }
 
@@ -264,30 +255,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     }
 
-    async function fallbackToFormSubmit(formData, btn, form, originalText) {
-        try {
-            const fallbackResponse = await fetch('https://formsubmit.co/79542f66e7e071df96fbfa2c3f09fc73', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-
-            const contentType = fallbackResponse.headers.get('content-type') || '';
-            if (fallbackResponse.ok && contentType.includes('application/json')) {
-                const result = await fallbackResponse.json();
-                if (result.success) {
-                    return showSuccess(btn, form, originalText);
-                }
-            }
-            // If we get here, either not ok, not JSON, or not success
-            throw new Error('FormSubmit submission failed');
-        } catch (fallbackError) {
-            // Fallback failed or indicated failure via response
-            showError(btn, form, originalText, 'Failed to send message via FormSubmit');
-        }
-    }
 
 
 
