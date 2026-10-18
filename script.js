@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(async (error) => {
                 // Try Formsubmit.co as fallback
                 try {
-                    const fallbackResponse = await fetch('https://formsubmit.co/tanishqkale007@gmail.com', {
+                    const fallbackResponse = await fetch('https://formsubmit.co/79542f66e7e071df96fbfa2c3f09fc73', {
                         method: 'POST',
                         body: formData,
                         headers: {
