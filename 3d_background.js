@@ -138,7 +138,8 @@ document.querySelectorAll('.section-title').forEach(title => {
             scrollTrigger: {
                 trigger: title,
                 start: "top 88%",
-                toggleActions: "play none none reverse"
+                toggleActions: "play none none none",
+                once: true
             }
         }
     );
@@ -158,7 +159,8 @@ timelineItems.forEach((item) => {
             scrollTrigger: {
                 trigger: item,
                 start: "top 85%",
-                toggleActions: "play none none reverse"
+                toggleActions: "play none none none",
+                once: true
             }
         }
     );
@@ -179,7 +181,8 @@ if (projectCards.length) {
             scrollTrigger: {
                 trigger: '.experience-grid',
                 start: "top 80%",
-                toggleActions: "play none none reverse"
+                toggleActions: "play none none none",
+                once: true
             }
         }
     );
@@ -203,7 +206,8 @@ if (skillCards.length) {
             scrollTrigger: {
                 trigger: '.skill-grid',
                 start: "top 82%",
-                toggleActions: "play none none reverse"
+                toggleActions: "play none none none",
+                once: true
             }
         }
     );
@@ -222,8 +226,9 @@ if (contactContainer) {
             ease: "power3.out",
             scrollTrigger: {
                 trigger: contactContainer,
-                start: "top 80%",
-                toggleActions: "play none none reverse"
+                start: "top 90%",
+                toggleActions: "play none none none",
+                once: true
             }
         }
     );
@@ -244,7 +249,8 @@ if (certItems.length) {
             scrollTrigger: {
                 trigger: '.cert-grid',
                 start: "top 80%",
-                toggleActions: "play none none reverse"
+                toggleActions: "play none none none",
+                once: true
             }
         }
     );

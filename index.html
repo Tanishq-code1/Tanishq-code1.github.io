@@ -1,667 +1,750 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tanishq Kale | AI Engineer & Developer</title>
-    <meta name="description"
-        content="Personal Portfolio of Tanishq Kale, an AI Engineer and Computer Science Undergraduate. Architecting production-grade Agentic AI, RAG systems, and robust backend engineering.">
-    <link rel="canonical" href="https://tanishqkale.vercel.app/" />
-
-    <!-- Open Graph SEO -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Tanishq Kale | AI Engineer & Developer">
-    <meta property="og:description" content="Explore my projects in Agentic AI & RAG, work experience, and technical skills.">
-    <meta property="og:image" content="portfolio_assets/Tanishq_Favicon.png">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Tanishq Kale | AI Engineer & Developer">
-    <meta name="twitter:description" content="Explore my projects in Agentic AI & RAG, work experience, and technical skills.">
-    <meta name="twitter:image" content="portfolio_assets/Tanishq_Favicon.png">
-
-    <link rel="icon" href="portfolio_assets/Tanishq_Favicon.png" type="image/png">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
-
-    <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
-    <script type="module" src="./speed-insights.js"></script>
-</head>
-
-<body>
-    <!-- Scroll Progress Bar -->
-    <div class="scroll-progress-bar" id="scrollProgressBar"></div>
-
-    <!-- ── Floating Navbar ── -->
-    <nav class="site-nav" id="siteNav">
-        <div class="nav-pill">
-            <span class="nav-indicator" id="navIndicator"></span>
-            <a href="#home" class="nav-link active" data-section="home">
-                <i class="fa-solid fa-house nav-icon"></i>
-                <span class="nav-label">Home</span>
-            </a>
-            <a href="#about" class="nav-link" data-section="about">
-                <i class="fa-solid fa-user nav-icon"></i>
-                <span class="nav-label">About</span>
-            </a>
-            <a href="#experience" class="nav-link" data-section="experience">
-                <i class="fa-solid fa-briefcase nav-icon"></i>
-                <span class="nav-label">Experience</span>
-            </a>
-            <a href="#projects" class="nav-link" data-section="projects">
-                <i class="fa-solid fa-code nav-icon"></i>
-                <span class="nav-label">Projects</span>
-            </a>
-            <a href="#skills" class="nav-link" data-section="skills">
-                <i class="fa-solid fa-layer-group nav-icon"></i>
-                <span class="nav-label">Skills</span>
-            </a>
-            <a href="#certifications" class="nav-link" data-section="certifications">
-                <i class="fa-solid fa-award nav-icon"></i>
-                <span class="nav-label">Certs</span>
-            </a>
-            <a href="#profiles" class="nav-link" data-section="profiles">
-                <i class="fa-solid fa-globe nav-icon"></i>
-                <span class="nav-label">Profiles</span>
-            </a>
-            <a href="#contact" class="nav-link" data-section="contact">
-                <i class="fa-solid fa-envelope nav-icon"></i>
-                <span class="nav-label">Contact</span>
-            </a>
-        </div>
-    </nav>
-
-    <!-- ── Preloader: Boot Sequence ── -->
-    <div class="preloader" id="preloader">
-        <div class="preloader-particles" id="preloaderParticles"></div>
-
-        <!-- Branding -->
-        <div class="preloader-brand">
-            <div class="preloader-brand-main">
-                <span class="preloader-brand-name">Tanishq</span><span class="preloader-brand-accent">Kale</span>
-            </div>
-            <div class="preloader-brand-subtitle">
-                <span class="subtitle-line"></span>
-                <span>AI Engineer & Developer</span>
-                <span class="subtitle-line"></span>
-            </div>
-        </div>
-
-        <!-- Sleek Loading Bar -->
-        <div class="preloader-sleek-track">
-            <div class="preloader-sleek-fill" id="preloaderSleekFill"></div>
-        </div>
-
-        <!-- Cycling Tagline -->
-        <div class="preloader-tagline">
-            <span class="tagline-word" style="--w:0">Architect.</span>
-            <span class="tagline-word" style="--w:1">Engineer.</span>
-            <span class="tagline-word" style="--w:2">Develop.</span>
-            <span class="tagline-word" style="--w:3">Innovate.</span>
-        </div>
-    </div>
-
-    <div class="cursor-dot" data-cursor-dot></div>
-    <div class="cursor-outline" data-cursor-outline></div>
-
-    <div class="background-container">
-        <canvas id="bg-canvas"></canvas>
-    </div>
-
-    <main class="hero" id="home">
-
-        <div class="floating-icon icon-top-left">
-            <i class="fa-solid fa-code"></i>
-        </div>
-        <div class="floating-icon icon-top-right">
-            <i class="fa-solid fa-brain"></i>
-        </div>
-        <div class="floating-icon icon-bottom-left">
-            <i class="fa-solid fa-trophy"></i>
-        </div>
-        <div class="floating-icon icon-bottom-right">
-            <i class="fa-regular fa-lightbulb"></i>
-        </div>
-
-        <div class="content-wrapper">
-            <h2 class="sub-title">Woah! You Landed on the Portfolio Website of The</h2>
-            <br>
-            <br>
-            <h1 class="sr-only">Tanishq Kale - AI Engineer & Software Developer Portfolio</h1>
-            <h2 class="main-title">
-                <span class="purple-text" id="typing-text"></span>
-            </h2>
-            <br>
-            <br>
-            <h5 class="year">Tanishq Kale | AI Engineer & CSE Undergrad</h5>
-            <br>
-            <div class="hero-buttons">
-                <a href="https://www.linkedin.com/in/tanishq-kale-profile/" target="_blank" rel="noopener noreferrer" class="btn-resume">Let's Connect</a>
-                <a href="portfolio_assets/Tanishq_Resume.pdf" target="_blank" rel="noopener noreferrer" id="openResumeBtn" class="btn-resume">View Resume</a>
-            </div>
-        </div>
-    </main>
-
-    <section class="about-section" id="about">
-        <div class="glass-card scroll-reveal">
-            <h2>About Me - <span class="purple-text">Behind The Code!</span></h2>
-            <p>
-                I don't just write code, I build intelligence into applications.
-                <br><br>
-                I'm a Computer Science developer fascinated by Agentic AI, LLMs, and Retrieval-Augmented Generation (RAG). I enjoy
-                turning ambitious ideas into working systems that can reason, retrieve information, and solve real-world problems.
-                <br><br>
-                From Python and backend engineering to LangChain, LangGraph, and AI-powered applications, I'm constantly experimenting,
-                building, and pushing beyond what I already know. My goal? To create technology that's not just impressive in a demo,
-                but genuinely useful in the real world.
-            </p>
-        </div>
-    </section>
-
-    <br>
-
-    <section class="projects-section" id="experience">
-        <h2 class="section-title">Work Experience - <span class="purple-text">Professional Journey!</span></h2>
-        <br>
-        <div class="timeline">
-            <div class="timeline-line">
-                <div class="timeline-progress"></div>
-            </div>
-
-            <div class="timeline-item left">
-                <div class="timeline-number">01</div>
-                <div class="timeline-content">
-                    <div class="project-tag">Ethara AI</div>
-                    <img src="portfolio_assets/Ethara_Icon.png" alt="Ethara AI Logo" class="company-logo">
-                    <h3>AI Evaluation & Post-LLM Training Intern</h3>
-                    <p style="text-align: left; padding: 10px 0;">
-                        • Evaluated LLM outputs for factual accuracy, logical consistency, and instruction-following across standardized
-                        evaluation frameworks.<br><br>
-                        • Benchmarked model responses to identify hallucinations, reasoning gaps, and alignment issues..<br><br>
-                        • Contributed to post-training optimization through structured annotation and feedback loops, helping improve response
-                        correctness and evaluation efficiency by 68%.
-                    </p>
-                </div>
-                <div class="timeline-date">JAN 2026 – MAY 2026</div>
-                <div class="timeline-dot"></div>
-            </div>
-
-            <div class="timeline-item right">
-                <div class="timeline-number">02</div>
-                <div class="timeline-content">
-                    <div class="project-tag">Acropolis Institute of Tech. & Research</div>
-                    <img src="portfolio_assets/Acropolis_Icon.png" alt="Acropolis Institute Logo" class="company-logo">
-                    <h3>B.Tech in Computer Science & Information Technology</h3>
-                    <p style="text-align: left; padding: 10px 0;">
-                        • Maintaining strong academic standing with specialization in Artificial Intelligence, Machine Learning, and Robust
-                        Backend Engineering.<br><br>
-                        • Architected scalable software solutions including financial RAG pipelines and computer vision analytics; achieved top NPTEL national certifications in Java, DAA, and Software Engineering.
-                    </p>
-                </div>
-                <div class="timeline-date">2022 – 2026</div>
-                <div class="timeline-dot"></div>
-            </div>
-        </div>
-    </section>
-
-    <br>
-
-    <section class="projects-section" id="projects">
-        <h2 class="section-title">Projects Showcase - <span class="purple-text">What I've Built!</span></h2>
-        <br>
-        <div class="experience-grid">
-
-            <div class="experience-card">
-                <div class="experience-date">JUL-2K25</div>
-                <div class="project-tag" style="display: inline-block; width: max-content;">LLMs, RAG & Vector Search</div>
-                <h3>Financial Report Analyzer</h3>
-                <p>
-                    Built an LLM-powered system to summarize financial reports and answer complex user queries through natural language. Implemented an end-to-end RAG pipeline with document chunking, embedding retrieval, and automated KPI extraction, slashing manual analysis time from 45 minutes to ~5 minutes.
-                </p>
-                <div class="project-links-wrapper">
-                    <a href="https://github.com/Tanishq-code1" target="_blank" rel="noopener noreferrer" class="project-btn primary-btn"><i
-                            class="fa-regular fa-eye"></i> View Live</a>
-                    <a href="https://github.com/Tanishq-code1" target="_blank" rel="noopener noreferrer"
-                        class="project-btn primary-btn"><i class="fa-brands fa-github"></i> GitHub</a>
-                </div>
-            </div>
-
-            <div class="experience-card">
-                <div class="experience-date">APR-2K26</div>
-                <div class="project-tag" style="display: inline-block; width: max-content;">Computer Vision & Machine Learning</div>
-                <h3>Video-Based Attentiveness Tracker</h3>
-                <p>
-                    Developed an AI-driven real-time attentiveness monitoring system analyzing facial features including eye gaze, head pose, and blink rate with Computer Vision. Engineered a live focus-scoring engine and complete backend pipeline for video stream processing and analytics.
-                </p>
-                <div class="project-links-wrapper">
-                    <a href="https://github.com/Tanishq-code1" target="_blank" rel="noopener noreferrer" class="project-btn primary-btn"><i
-                            class="fa-regular fa-eye"></i> View Live</a>
-                    <a href="https://github.com/Tanishq-code1" target="_blank" rel="noopener noreferrer"
-                        class="project-btn primary-btn"><i class="fa-brands fa-github"></i> GitHub</a>
-                </div>
-            </div>
-
-            <div class="experience-card">
-                <div class="experience-date">APR-2K25</div>
-                <div class="project-tag" style="display: inline-block; width: max-content;">Smart Agriculture Web Platform</div>
-                <h3>AgriDefence</h3>
-                <p>
-                    An intelligent crop protection and agricultural advisory platform built with TypeScript and modern web technologies to assist farmers with disease diagnosis, crop health monitoring, and weather-resilient agricultural decision making.
-                </p>
-                <div class="project-links-wrapper">
-                    <a href="https://agri-defence.vercel.app" target="_blank" rel="noopener noreferrer" class="project-btn primary-btn"><i
-                            class="fa-regular fa-eye"></i> View Live</a>
-                    <a href="https://github.com/Tanishq-code1/AgriDefence" target="_blank" rel="noopener noreferrer"
-                        class="project-btn primary-btn"><i class="fa-brands fa-github"></i> GitHub</a>
-                </div>
-            </div>
-
-            <div class="experience-card">
-                <div class="experience-date">JAN-2K25</div>
-                <div class="project-tag" style="display: inline-block; width: max-content;">Safety Web Application</div>
-                <h3>Alert-Angel</h3>
-                <p>
-                    A proactive women safety web application featuring real-time emergency alert dispatch, location sharing, and intuitive SOS triggers designed to enhance personal security and rapid emergency response.
-                </p>
-                <div class="project-links-wrapper">
-                    <a href="https://github.com/Tanishq-code1/Alert-Angel" target="_blank" rel="noopener noreferrer" class="project-btn primary-btn"><i
-                            class="fa-regular fa-eye"></i> View Live</a>
-                    <a href="https://github.com/Tanishq-code1/Alert-Angel" target="_blank" rel="noopener noreferrer"
-                        class="project-btn primary-btn"><i class="fa-brands fa-github"></i> GitHub</a>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <br>
-
-    <section class="skills-section" id="skills">
-        <h2 class="section-title">Technical Skills - <span class="purple-text">Core Expertise!</span></h2>
-
-        <div class="skill-filters" id="skillFilters">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="ai-ml">AI & ML</button>
-            <button class="filter-btn" data-filter="languages">Languages</button>
-            <button class="filter-btn" data-filter="backend">Backend</button>
-            <button class="filter-btn" data-filter="databases">Databases & Cloud</button>
-            <button class="filter-btn" data-filter="tools">Tools</button>
-        </div>
-
-        <div class="skill-grid" id="skillGrid">
-
-            <!-- AI & ML Concepts -->
-            <div class="skill-card" data-category="ai-ml">
-                <i class="fa-solid fa-wand-magic-sparkles" style="color: #c084fc;"></i>
-                <span>Generative AI</span>
-            </div>
-            <div class="skill-card" data-category="ai-ml">
-                <i class="fa-solid fa-network-wired" style="color: #a855f7;"></i>
-                <span>RAG</span>
-            </div>
-            <div class="skill-card" data-category="ai-ml">
-                <i class="fa-solid fa-robot" style="color: #60a5fa;"></i>
-                <span>LLMs</span>
-            </div>
-            <div class="skill-card" data-category="ai-ml">
-                <i class="fa-solid fa-microchip" style="color: #fbbf24;"></i>
-                <span>Agentic AI</span>
-            </div>
-            <div class="skill-card" data-category="ai-ml">
-                <i class="fa-solid fa-link" style="color: #34d399;"></i>
-                <span>LangChain</span>
-            </div>
-            <div class="skill-card" data-category="ai-ml">
-                <i class="fa-solid fa-diagram-project" style="color: #f472b6;"></i>
-                <span>LangGraph</span>
-            </div>
-            <div class="skill-card" data-category="ai-ml">
-                <i class="fa-solid fa-terminal" style="color: #38bdf8;"></i>
-                <span>Prompt Eng.</span>
-            </div>
-            <div class="skill-card" data-category="ai-ml">
-                <i class="fa-solid fa-eye" style="color: #4ade80;"></i>
-                <span>Computer Vision</span>
-            </div>
-            <div class="skill-card" data-category="ai-ml">
-                <i class="devicon-opencv-plain colored"></i>
-                <span>OpenCV</span>
-            </div>
-            <div class="skill-card" data-category="ai-ml">
-                <i class="fa-solid fa-bolt" style="color: #facc15;"></i>
-                <span>MCP</span>
-            </div>
-
-            <!-- Languages -->
-            <div class="skill-card" data-category="languages">
-                <i class="fa-brands fa-python" style="color: #3776AB;"></i>
-                <span>Python</span>
-            </div>
-            <div class="skill-card" data-category="languages">
-                <i class="devicon-java-plain colored"></i>
-                <span>Java</span>
-            </div>
-            <div class="skill-card" data-category="languages">
-                <i class="fa-solid fa-database" style="color: #f97316;"></i>
-                <span>SQL</span>
-            </div>
-            <div class="skill-card" data-category="languages">
-                <i class="devicon-javascript-plain colored"></i>
-                <span>JavaScript</span>
-            </div>
-            <div class="skill-card" data-category="languages">
-                <i class="devicon-typescript-plain colored"></i>
-                <span>TypeScript</span>
-            </div>
-
-            <!-- Backend -->
-            <div class="skill-card" data-category="backend">
-                <i class="devicon-fastapi-plain colored"></i>
-                <span>FastAPI</span>
-            </div>
-            <div class="skill-card" data-category="backend">
-                <i class="fa-solid fa-shield-halved" style="color: #e11d48;"></i>
-                <span>Pydantic</span>
-            </div>
-            <div class="skill-card" data-category="backend">
-                <i class="devicon-nodejs-plain-wordmark colored"></i>
-                <span>Node.js</span>
-            </div>
-            <div class="skill-card" data-category="backend">
-                <i class="devicon-express-original"></i>
-                <span>Express.js</span>
-            </div>
-
-            <!-- Databases & Cloud -->
-            <div class="skill-card" data-category="databases">
-                <i class="devicon-azure-plain colored"></i>
-                <span>Azure Cloud</span>
-            </div>
-            <div class="skill-card" data-category="databases">
-                <i class="fa-solid fa-cubes" style="color: #818cf8;"></i>
-                <span>Vector DBs</span>
-            </div>
-            <div class="skill-card" data-category="databases">
-                <i class="devicon-postgresql-plain colored"></i>
-                <span>PostgreSQL</span>
-            </div>
-            <div class="skill-card" data-category="databases">
-                <i class="devicon-mysql-plain colored"></i>
-                <span>MySQL</span>
-            </div>
-            <div class="skill-card" data-category="databases">
-                <i class="devicon-mongodb-plain colored"></i>
-                <span>MongoDB</span>
-            </div>
-
-            <!-- Tools -->
-            <div class="skill-card" data-category="tools">
-                <i class="devicon-git-plain colored"></i>
-                <span>Git</span>
-            </div>
-            <div class="skill-card" data-category="tools">
-                <i class="devicon-github-original"></i>
-                <span>GitHub</span>
-            </div>
-            <div class="skill-card" data-category="tools">
-                <i class="devicon-postman-plain colored"></i>
-                <span>Postman</span>
-            </div>
-            <div class="skill-card" data-category="tools">
-                <i class="devicon-vscode-plain colored"></i>
-                <span>VS Code</span>
-            </div>
-            <div class="skill-card" data-category="tools">
-                <i class="devicon-vercel-original"></i>
-                <span>Vercel</span>
-            </div>
-
-        </div>
-    </section>
-
-    <section class="certifications-section" id="certifications">
-        <h2 class="section-title">Certifications - <span class="purple-text">Learning Milestones!</span></h2>
-
-        <div class="cert-grid">
-
-            <div class="cert-item">
-                <div class="cert-img-wrapper">
-                    <img src="portfolio_assets/NPTEL_Java_Certificate.png" alt="NPTEL: Programming in Java">
-                    <div class="cert-overlay">
-                        <a href="portfolio_assets/NPTEL_Java_Certificate.png" target="_blank" class="cert-overlay-link">
-                            <span>View Credentials</span>
-                            <i class="fa-solid fa-arrow-right-long"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="cert-info">
-                    <h3>NPTEL: Programming in Java</h3>
-                    <p>Elite national certification in Core and Object-Oriented Java Programming, Multithreading, Exception Handling, Collections Framework, and JVM Architecture.</p>
-                </div>
-            </div>
-
-            <div class="cert-item">
-                <div class="cert-img-wrapper">
-                    <img src="portfolio_assets/NPTEL_DAA_Certificate.png" alt="NPTEL: Design and Analysis of Algorithms">
-                    <div class="cert-overlay">
-                        <a href="portfolio_assets/NPTEL_DAA_Certificate.png" target="_blank" class="cert-overlay-link">
-                            <span>View Credentials</span>
-                            <i class="fa-solid fa-arrow-right-long"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="cert-info">
-                    <h3>NPTEL: Design & Analysis of Algorithms</h3>
-                    <p>Certified in advanced algorithmic theory, asymptotic complexity analysis, dynamic programming, greedy methods, divide-and-conquer, and graph algorithms.</p>
-                </div>
-            </div>
-
-            <div class="cert-item">
-                <div class="cert-img-wrapper">
-                    <img src="portfolio_assets/NPTEL_SE_Certificate.png" alt="NPTEL: Software Engineering">
-                    <div class="cert-overlay">
-                        <a href="portfolio_assets/NPTEL_SE_Certificate.png" target="_blank" class="cert-overlay-link">
-                            <span>View Credentials</span>
-                            <i class="fa-solid fa-arrow-right-long"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="cert-info">
-                    <h3>NPTEL: Software Engineering</h3>
-                    <p>Certified in Software Development Life Cycle (SDLC), Agile practices, software architecture, design patterns, testing strategies, and quality assurance principles.</p>
-                </div>
-            </div>
-
-            <div class="cert-item">
-                <div class="cert-img-wrapper">
-                    <img src="portfolio_assets/Ethara_AI_Certificate.png" alt="Ethara AI: LLM Evaluation & Post-Training">
-                    <div class="cert-overlay">
-                        <a href="portfolio_assets/Ethara_AI_Certificate.png" target="_blank" class="cert-overlay-link">
-                            <span>View Credentials</span>
-                            <i class="fa-solid fa-arrow-right-long"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="cert-info">
-                    <h3>Ethara AI: LLM Benchmark & Evaluation</h3>
-                    <p>Demonstrated excellence in Post-LLM Training, comparative benchmarking, hallucination analysis, and structured annotation pipelines that improved evaluation efficiency by 68%.</p>
-                </div>
-            </div>
-
-            <div class="cert-item">
-                <div class="cert-img-wrapper">
-                    <img src="portfolio_assets/District_GK_Award.png" alt="District-Level General Knowledge Quiz">
-                    <div class="cert-overlay">
-                        <a href="portfolio_assets/District_GK_Award.png" target="_blank" class="cert-overlay-link">
-                            <span>View Credentials</span>
-                            <i class="fa-solid fa-arrow-right-long"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="cert-info">
-                    <h3>1st Place: District General Knowledge Quiz</h3>
-                    <p>Achieved 1st Place among competing collegiate institutions across the district, demonstrating intellectual agility, broad awareness, and cognitive performance under pressure.</p>
-                </div>
-            </div>
-
-            <div class="cert-item">
-                <div class="cert-img-wrapper">
-                    <img src="portfolio_assets/Chess_Tournament_Award.png" alt="Competitive Chess Tournament Champion">
-                    <div class="cert-overlay">
-                        <a href="portfolio_assets/Chess_Tournament_Award.png" target="_blank" class="cert-overlay-link">
-                            <span>View Credentials</span>
-                            <i class="fa-solid fa-arrow-right-long"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="cert-info">
-                    <h3>Champion: Competitive Chess Championship</h3>
-                    <p>Won competitive chess tournament, demonstrating advanced analytical thinking, strategic foresight, deep positional calculation, and decisive execution under time pressure.</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <br>
-
-    <section class="profiles-section" id="profiles">
-        <h2 class="section-title">Web Presence - <span class="purple-text">Dev Network!</span></h2>
-        <div class="profile-header">
-            <div class="profile-img-main">
-                <img src="portfolio_assets/Tanishq_Portrait.jpg" alt="Tanishq Kale">
-            </div>
-            <div class="profile-text">
-                <p class="purple-text">@Tanishq-code1</p>
-            </div>
-        </div>
-
-        <div class="profiles-grid">
-
-            <a href="https://www.linkedin.com/in/tanishq-kale-profile/" target="_blank" rel="noopener noreferrer" class="profile-card">
-                <div class="profile-icon">
-                    <i class="fa-brands fa-linkedin" style="color: #0077b5;"></i>
-                </div>
-                <div class="profile-info">
-                    <h3>LinkedIn</h3>
-                    <p>Connect</p>
-                </div>
-            </a>
-
-            <a href="https://github.com/Tanishq-code1" target="_blank" rel="noopener noreferrer" class="profile-card">
-                <div class="profile-icon">
-                    <i class="fa-brands fa-github" style="color: #fff;"></i>
-                </div>
-                <div class="profile-info">
-                    <h3>GitHub</h3>
-                    <p>Commit</p>
-                </div>
-            </a>
-
-            <a href="https://leetcode.com/u/Tanishq-code1/" target="_blank" rel="noopener noreferrer" class="profile-card">
-                <div class="profile-icon">
-                    <i class="devicon-leetcode-plain colored"></i>
-                </div>
-                <div class="profile-info">
-                    <h3>LeetCode</h3>
-                    <p>Compete</p>
-                </div>
-            </a>
-
-            <a href="mailto:tanishqkale007@gmail.com" class="profile-card">
-                <div class="profile-icon">
-                    <i class="fa-solid fa-envelope" style="color: #a855f7;"></i>
-                </div>
-                <div class="profile-info">
-                    <h3>Email</h3>
-                    <p>Message</p>
-                </div>
-            </a>
-        </div>
-        <br>
-        <p class="profile-note">You can explore further by clicking on any of the profile cards above!</p>
-    </section>
-
-    <br>
-
-    <section class="contact-section" id="contact">
-        <div class="contact-container">
-            <h2 class="section-title">Get In Touch - <span class="purple-text">Ask Me Anything!</span></h2>
-            <h4 class="contact-note">Ready to collaborate or discuss AI engineering opportunities?<br> I'm always open to new projects, opportunities, and interesting conversations.</h4>
-            <div class="contact-card">
-                <form id="contactForm" class="contact-form" method="POST">
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" required placeholder=" " autocomplete="off">
-                        <label for="name">Name</label>
-                        <i class="fa-solid fa-user input-icon"></i>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" required placeholder=" " autocomplete="off">
-                        <label for="email">Email</label>
-                        <i class="fa-solid fa-envelope input-icon"></i>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" rows="4" required placeholder=" "></textarea>
-                        <label for="message">Message</label>
-                        <i class="fa-solid fa-comment input-icon"></i>
-                    </div>
-                    <button type="submit" class="btn-resume btn-submit">
-                        <span>Send Message</span>
-                        <i class="fa-solid fa-paper-plane"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <br>
-
-    <footer class="footer">
-        <div class="footer-container">
-
-            <div class="footer-brand">
-                <h2 class="footer-logo">Tanishq<span class="purple-text">Kale</span></h2>
-                <p class="footer-tagline">Exploring Agentic AI. Building What's Next.</p>
-            </div>
-
-            <ul class="footer-nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#certifications">Certifications</a></li>
-                <li><a href="#profiles">Profiles</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-
-            <div class="footer-socials">
-                <a href="https://www.linkedin.com/in/tanishq-kale-profile/" target="_blank" rel="noopener noreferrer" class="social-link linkedin" aria-label="LinkedIn"><i
-                        class="fa-brands fa-linkedin"></i></a>
-                <a href="https://github.com/Tanishq-code1" target="_blank" rel="noopener noreferrer" class="social-link github" aria-label="GitHub"><i
-                        class="fa-brands fa-github"></i></a>
-                <a href="mailto:tanishqkale007@gmail.com" class="social-link email" aria-label="Email"><i
-                        class="fa-solid fa-envelope"></i></a>
-            </div>
-        </div>
-
-        <!-- <div class="footer-bottom">
-            <p>&copy; 2026 Tanishq Kale. All rights reserved.</p>
-            <button id="backToTop" class="back-to-top" aria-label="Back to Top">
-                <i class="fa-solid fa-arrow-up"></i>
-            </button>
-        </div>
-    </footer> -->
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-    <script src="3d_background.js"></script>
-    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <script src="script.js"></script>
-</body>
-
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanishq Kale | AI Engineer & Developer</title>
+    <meta name="description"
+        content="Personal Portfolio of Tanishq Kale, an AI Engineer and Computer Science Undergraduate. Architecting production-grade Agentic AI, RAG systems, and robust backend engineering.">
+    <link rel="canonical" href="https://tanishqkale.vercel.app/" />
+
+    <!-- Open Graph SEO -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Tanishq Kale | AI Engineer & Developer">
+    <meta property="og:description" content="Explore my projects in Agentic AI & RAG, work experience, and technical skills.">
+    <meta property="og:image" content="portfolio_assets/Tanishq_Favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tanishq Kale | AI Engineer & Developer">
+    <meta name="twitter:description" content="Explore my projects in Agentic AI & RAG, work experience, and technical skills.">
+    <meta name="twitter:image" content="portfolio_assets/Tanishq_Favicon.png">
+
+    <!-- High-Definition SVG Monogram Favicon (TK) in Cyber Teal Palette -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%235eead4'/%3E%3Cstop offset='50%25' stop-color='%2336c9b4'/%3E%3Cstop offset='100%25' stop-color='%2314b8a6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='18' fill='%23101416' stroke='rgba(54,201,180,0.5)' stroke-width='2.5'/%3E%3Ctext x='32' y='43' font-family='-apple-system,BlinkMacSystemFont,Inter,sans-serif' font-size='27' font-weight='900' text-anchor='middle' fill='url(%23g)'%3ETK%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.26/dist/lenis.css">
+    <link rel="stylesheet" href="style.css?v=2.4">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+
+    <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+    <script type="module" src="./speed-insights.js"></script>
+</head>
+
+<body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+
+    <!-- ── Floating Navbar ── -->
+    <nav class="site-nav" id="siteNav">
+        <div class="nav-pill">
+            <!-- Animated Cyber Teal Motion Logo (TK) -->
+            <a href="#home" class="nav-brand-logo" aria-label="Tanishq Kale — Back to Top" title="Tanishq Kale">
+                <span class="nav-logo-mark"><span class="logo-text">TK</span></span>
+            </a>
+            <span class="nav-indicator" id="navIndicator"></span>
+            <a href="#home" class="nav-link active" data-section="home">
+                <i class="fa-solid fa-house nav-icon"></i>
+                <span class="nav-label">Home</span>
+            </a>
+            <a href="#about" class="nav-link" data-section="about">
+                <i class="fa-solid fa-user nav-icon"></i>
+                <span class="nav-label">About</span>
+            </a>
+            <a href="#experience" class="nav-link" data-section="experience">
+                <i class="fa-solid fa-briefcase nav-icon"></i>
+                <span class="nav-label">Experience</span>
+            </a>
+            <a href="#projects" class="nav-link" data-section="projects">
+                <i class="fa-solid fa-code nav-icon"></i>
+                <span class="nav-label">Projects</span>
+            </a>
+            <a href="#skills" class="nav-link" data-section="skills">
+                <i class="fa-solid fa-layer-group nav-icon"></i>
+                <span class="nav-label">Skills</span>
+            </a>
+            <a href="#certifications" class="nav-link" data-section="certifications">
+                <i class="fa-solid fa-award nav-icon"></i>
+                <span class="nav-label">Certs</span>
+            </a>
+            <a href="#profiles" class="nav-link" data-section="profiles">
+                <i class="fa-solid fa-globe nav-icon"></i>
+                <span class="nav-label">Profiles</span>
+            </a>
+            <a href="#contact" class="nav-link" data-section="contact">
+                <i class="fa-solid fa-envelope nav-icon"></i>
+                <span class="nav-label">Contact</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- ── Preloader: Boot Sequence ── -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-particles" id="preloaderParticles"></div>
+
+        <!-- Branding -->
+        <div class="preloader-brand">
+            <div class="preloader-brand-main">
+                <span class="preloader-brand-name">Tanishq</span><span class="preloader-brand-accent">Kale</span>
+            </div>
+            <div class="preloader-brand-subtitle">
+                <span class="subtitle-line"></span>
+                <span>AI Engineer & Developer</span>
+                <span class="subtitle-line"></span>
+            </div>
+        </div>
+
+        <!-- Sleek Loading Bar -->
+        <div class="preloader-sleek-track">
+            <div class="preloader-sleek-fill" id="preloaderSleekFill"></div>
+        </div>
+
+        <!-- Cycling Tagline -->
+        <div class="preloader-tagline">
+            <span class="tagline-word" style="--w:0">Architect.</span>
+            <span class="tagline-word" style="--w:1">Engineer.</span>
+            <span class="tagline-word" style="--w:2">Develop.</span>
+            <span class="tagline-word" style="--w:3">Innovate.</span>
+        </div>
+    </div>
+
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+
+    <div class="background-container">
+        <canvas id="bg-canvas"></canvas>
+    </div>
+
+    <main class="hero" id="home">
+
+        <div class="floating-icon icon-top-left">
+            <i class="fa-solid fa-code"></i>
+        </div>
+        <div class="floating-icon icon-top-right">
+            <i class="fa-solid fa-brain"></i>
+        </div>
+        <div class="floating-icon icon-bottom-left">
+            <i class="fa-solid fa-trophy"></i>
+        </div>
+        <div class="floating-icon icon-bottom-right">
+            <i class="fa-regular fa-lightbulb"></i>
+        </div>
+
+        <div class="content-wrapper">
+            <h2 class="sub-title">Woah! You Landed on the Portfolio Website of The</h2>
+            <br>
+            <br>
+            <h1 class="sr-only">Tanishq Kale - AI Engineer & Software Developer Portfolio</h1>
+            <h2 class="main-title">
+                <span class="purple-text" id="typing-text"></span>
+            </h2>
+            <br>
+            <br>
+            <h5 class="year">Tanishq Kale | AI Engineer & CSE Undergrad</h5>
+            <br>
+            <div class="hero-buttons">
+                <a href="https://www.linkedin.com/in/tanishq-kale-profile/" target="_blank" rel="noopener noreferrer" class="btn-resume">Let's Connect</a>
+                <a href="portfolio_assets/Tanishq_Resume.pdf" target="_blank" rel="noopener noreferrer" id="openResumeBtn" class="btn-resume">View Resume</a>
+            </div>
+        </div>
+    </main>
+
+    <section class="about-section" id="about">
+        <div class="glass-card scroll-reveal">
+            <h2>About Me - <span class="purple-text">Behind The Code!</span></h2>
+            <p>
+                I don't just write code, I build intelligence into applications.
+                <br><br>
+                I'm a Computer Science developer fascinated by Agentic AI, LLMs, and Retrieval-Augmented Generation (RAG). I enjoy
+                turning ambitious ideas into working systems that can reason, retrieve information, and solve real-world problems.
+                <br><br>
+                From Python and backend engineering to LangChain, LangGraph, and AI-powered applications, I'm constantly experimenting,
+                building, and pushing beyond what I already know. My goal? To create technology that's not just impressive in a demo,
+                but genuinely useful in the real world.
+            </p>
+        </div>
+    </section>
+
+    <br>
+
+    <section class="projects-section" id="experience">
+        <h2 class="section-title">Work Experience - <span class="purple-text">Professional Journey!</span></h2>
+        <br>
+        <div class="timeline">
+            <div class="timeline-line">
+                <div class="timeline-progress"></div>
+            </div>
+
+            <div class="timeline-item left">
+                <div class="timeline-number">01</div>
+                <div class="timeline-content">
+                    <div class="project-tag">Ethara AI</div>
+                    <img src="portfolio_assets/Ethara_Icon.png" alt="Ethara AI Logo" class="company-logo">
+                    <h3>AI Evaluation & Post-LLM Training Intern</h3>
+                    <p style="text-align: left; padding: 10px 0;">
+                        • Evaluated LLM outputs for factual accuracy, logical consistency, and instruction-following across standardized
+                        evaluation frameworks.<br><br>
+                        • Benchmarked model responses to identify hallucinations, reasoning gaps, and alignment issues..<br><br>
+                        • Contributed to post-training optimization through structured annotation and feedback loops, helping improve response
+                        correctness and evaluation efficiency by 68%.
+                    </p>
+                </div>
+                <div class="timeline-date">JAN 2026 – MAY 2026</div>
+                <div class="timeline-dot"></div>
+            </div>
+
+            <div class="timeline-item right">
+                <div class="timeline-number">02</div>
+                <div class="timeline-content">
+                    <div class="project-tag">Acropolis Institute of Tech. & Research</div>
+                    <img src="portfolio_assets/Acropolis_Icon.png" alt="Acropolis Institute Logo" class="company-logo">
+                    <h3>B.Tech in Computer Science & Information Technology</h3>
+                    <p style="text-align: left; padding: 10px 0;">
+                        • Maintaining strong academic standing with specialization in Artificial Intelligence, Machine Learning, and Robust
+                        Backend Engineering.<br><br>
+                        • Architected scalable software solutions including financial RAG pipelines and computer vision analytics; achieved top NPTEL national certifications in Java, DAA, and Software Engineering.
+                    </p>
+                </div>
+                <div class="timeline-date">2022 – 2026</div>
+                <div class="timeline-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <br>
+
+    <section class="projects-section" id="projects">
+        <h2 class="section-title">Projects Showcase - <span class="purple-text">What I've Built!</span></h2>
+        <br>
+        <div class="experience-grid">
+
+            <div class="experience-card">
+                <div class="experience-date">JUL-2K25</div>
+                <div class="project-tag" style="display: inline-block; width: max-content;">LLMs, RAG & Vector Search</div>
+                <h3>Financial Report Analyzer</h3>
+                <p>
+                    Built an LLM-powered system to summarize financial reports and answer complex user queries through natural language. Implemented an end-to-end RAG pipeline with document chunking, embedding retrieval, and automated KPI extraction, slashing manual analysis time from 45 minutes to ~5 minutes.
+                </p>
+                <div class="project-links-wrapper">
+                    <a href="https://github.com/Tanishq-code1" target="_blank" rel="noopener noreferrer" class="project-btn primary-btn"><i
+                            class="fa-regular fa-eye"></i> View Live</a>
+                    <a href="https://github.com/Tanishq-code1" target="_blank" rel="noopener noreferrer"
+                        class="project-btn primary-btn"><i class="fa-brands fa-github"></i> GitHub</a>
+                </div>
+            </div>
+
+            <div class="experience-card">
+                <div class="experience-date">APR-2K26</div>
+                <div class="project-tag" style="display: inline-block; width: max-content;">Computer Vision & Machine Learning</div>
+                <h3>Video-Based Attentiveness Tracker</h3>
+                <p>
+                    Developed an AI-driven real-time attentiveness monitoring system analyzing facial features including eye gaze, head pose, and blink rate with Computer Vision. Engineered a live focus-scoring engine and complete backend pipeline for video stream processing and analytics.
+                </p>
+                <div class="project-links-wrapper">
+                    <a href="https://github.com/Tanishq-code1" target="_blank" rel="noopener noreferrer" class="project-btn primary-btn"><i
+                            class="fa-regular fa-eye"></i> View Live</a>
+                    <a href="https://github.com/Tanishq-code1" target="_blank" rel="noopener noreferrer"
+                        class="project-btn primary-btn"><i class="fa-brands fa-github"></i> GitHub</a>
+                </div>
+            </div>
+
+            <div class="experience-card">
+                <div class="experience-date">APR-2K25</div>
+                <div class="project-tag" style="display: inline-block; width: max-content;">Smart Agriculture Web Platform</div>
+                <h3>AgriDefence</h3>
+                <p>
+                    An intelligent crop protection and agricultural advisory platform built with TypeScript and modern web technologies to assist farmers with disease diagnosis, crop health monitoring, and weather-resilient agricultural decision making.
+                </p>
+                <div class="project-links-wrapper">
+                    <a href="https://agri-defence.vercel.app" target="_blank" rel="noopener noreferrer" class="project-btn primary-btn"><i
+                            class="fa-regular fa-eye"></i> View Live</a>
+                    <a href="https://github.com/Tanishq-code1/AgriDefence" target="_blank" rel="noopener noreferrer"
+                        class="project-btn primary-btn"><i class="fa-brands fa-github"></i> GitHub</a>
+                </div>
+            </div>
+
+            <div class="experience-card">
+                <div class="experience-date">JAN-2K25</div>
+                <div class="project-tag" style="display: inline-block; width: max-content;">Safety Web Application</div>
+                <h3>Alert-Angel</h3>
+                <p>
+                    A proactive women safety web application featuring real-time emergency alert dispatch, location sharing, and intuitive SOS triggers designed to enhance personal security and rapid emergency response.
+                </p>
+                <div class="project-links-wrapper">
+                    <a href="https://github.com/Tanishq-code1/Alert-Angel" target="_blank" rel="noopener noreferrer" class="project-btn primary-btn"><i
+                            class="fa-regular fa-eye"></i> View Live</a>
+                    <a href="https://github.com/Tanishq-code1/Alert-Angel" target="_blank" rel="noopener noreferrer"
+                        class="project-btn primary-btn"><i class="fa-brands fa-github"></i> GitHub</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <br>
+
+    <section class="skills-section" id="skills">
+        <h2 class="section-title">Technical Skills - <span class="purple-text">Core Expertise!</span></h2>
+
+        <div class="skill-filters" id="skillFilters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="ai-ml">AI & ML</button>
+            <button class="filter-btn" data-filter="languages">Languages</button>
+            <button class="filter-btn" data-filter="backend">Backend</button>
+            <button class="filter-btn" data-filter="databases">Databases & Cloud</button>
+            <button class="filter-btn" data-filter="tools">Tools</button>
+        </div>
+
+        <div class="skill-grid" id="skillGrid">
+
+            <!-- AI & ML Concepts -->
+            <div class="skill-card" data-category="ai-ml">
+                <i class="fa-solid fa-wand-magic-sparkles" style="color: #c084fc;"></i>
+                <span>Generative AI</span>
+            </div>
+            <div class="skill-card" data-category="ai-ml">
+                <i class="fa-solid fa-network-wired" style="color: #a855f7;"></i>
+                <span>RAG</span>
+            </div>
+            <div class="skill-card" data-category="ai-ml">
+                <i class="fa-solid fa-robot" style="color: #60a5fa;"></i>
+                <span>LLMs</span>
+            </div>
+            <div class="skill-card" data-category="ai-ml">
+                <i class="fa-solid fa-microchip" style="color: #fbbf24;"></i>
+                <span>Agentic AI</span>
+            </div>
+            <div class="skill-card" data-category="ai-ml">
+                <i class="fa-solid fa-link" style="color: #34d399;"></i>
+                <span>LangChain</span>
+            </div>
+            <div class="skill-card" data-category="ai-ml">
+                <i class="fa-solid fa-diagram-project" style="color: #f472b6;"></i>
+                <span>LangGraph</span>
+            </div>
+            <div class="skill-card" data-category="ai-ml">
+                <i class="fa-solid fa-terminal" style="color: #38bdf8;"></i>
+                <span>Prompt Eng.</span>
+            </div>
+            <div class="skill-card" data-category="ai-ml">
+                <i class="fa-solid fa-eye" style="color: #4ade80;"></i>
+                <span>Computer Vision</span>
+            </div>
+            <div class="skill-card" data-category="ai-ml">
+                <i class="devicon-opencv-plain colored"></i>
+                <span>OpenCV</span>
+            </div>
+            <div class="skill-card" data-category="ai-ml">
+                <i class="fa-solid fa-bolt" style="color: #facc15;"></i>
+                <span>MCP</span>
+            </div>
+
+            <!-- Languages -->
+            <div class="skill-card" data-category="languages">
+                <i class="fa-brands fa-python" style="color: #3776AB;"></i>
+                <span>Python</span>
+            </div>
+            <div class="skill-card" data-category="languages">
+                <i class="devicon-java-plain colored"></i>
+                <span>Java</span>
+            </div>
+            <div class="skill-card" data-category="languages">
+                <i class="fa-solid fa-database" style="color: #f97316;"></i>
+                <span>SQL</span>
+            </div>
+            <div class="skill-card" data-category="languages">
+                <i class="devicon-javascript-plain colored"></i>
+                <span>JavaScript</span>
+            </div>
+            <div class="skill-card" data-category="languages">
+                <i class="devicon-typescript-plain colored"></i>
+                <span>TypeScript</span>
+            </div>
+
+            <!-- Backend -->
+            <div class="skill-card" data-category="backend">
+                <i class="devicon-fastapi-plain colored"></i>
+                <span>FastAPI</span>
+            </div>
+            <div class="skill-card" data-category="backend">
+                <i class="fa-solid fa-shield-halved" style="color: #e11d48;"></i>
+                <span>Pydantic</span>
+            </div>
+            <div class="skill-card" data-category="backend">
+                <i class="devicon-nodejs-plain-wordmark colored"></i>
+                <span>Node.js</span>
+            </div>
+            <div class="skill-card" data-category="backend">
+                <i class="devicon-express-original"></i>
+                <span>Express.js</span>
+            </div>
+
+            <!-- Databases & Cloud -->
+            <div class="skill-card" data-category="databases">
+                <i class="devicon-azure-plain colored"></i>
+                <span>Azure Cloud</span>
+            </div>
+            <div class="skill-card" data-category="databases">
+                <i class="fa-solid fa-cubes" style="color: #818cf8;"></i>
+                <span>Vector DBs</span>
+            </div>
+            <div class="skill-card" data-category="databases">
+                <i class="devicon-postgresql-plain colored"></i>
+                <span>PostgreSQL</span>
+            </div>
+            <div class="skill-card" data-category="databases">
+                <i class="devicon-mysql-plain colored"></i>
+                <span>MySQL</span>
+            </div>
+            <div class="skill-card" data-category="databases">
+                <i class="devicon-mongodb-plain colored"></i>
+                <span>MongoDB</span>
+            </div>
+
+            <!-- Tools -->
+            <div class="skill-card" data-category="tools">
+                <i class="devicon-git-plain colored"></i>
+                <span>Git</span>
+            </div>
+            <div class="skill-card" data-category="tools">
+                <i class="devicon-github-original"></i>
+                <span>GitHub</span>
+            </div>
+            <div class="skill-card" data-category="tools">
+                <i class="devicon-postman-plain colored"></i>
+                <span>Postman</span>
+            </div>
+            <div class="skill-card" data-category="tools">
+                <i class="devicon-vscode-plain colored"></i>
+                <span>VS Code</span>
+            </div>
+            <div class="skill-card" data-category="tools">
+                <i class="devicon-vercel-original"></i>
+                <span>Vercel</span>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="certifications-section" id="certifications">
+        <h2 class="section-title">Certifications - <span class="purple-text">Learning Milestones!</span></h2>
+
+        <div class="cert-grid">
+
+            <div class="cert-item">
+                <div class="cert-img-wrapper">
+                    <img src="portfolio_assets/NPTEL_Java_Certificate.png" alt="NPTEL: Programming in Java">
+                    <div class="cert-overlay">
+                        <a href="portfolio_assets/NPTEL_Java_Certificate.png" target="_blank" class="cert-overlay-link">
+                            <span>View Credentials</span>
+                            <i class="fa-solid fa-arrow-right-long"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3>NPTEL: Programming in Java</h3>
+                    <p>Elite national certification in Core and Object-Oriented Java Programming, Multithreading, Exception Handling, Collections Framework, and JVM Architecture.</p>
+                </div>
+            </div>
+
+            <div class="cert-item">
+                <div class="cert-img-wrapper">
+                    <img src="portfolio_assets/NPTEL_DAA_Certificate.png" alt="NPTEL: Design and Analysis of Algorithms">
+                    <div class="cert-overlay">
+                        <a href="portfolio_assets/NPTEL_DAA_Certificate.png" target="_blank" class="cert-overlay-link">
+                            <span>View Credentials</span>
+                            <i class="fa-solid fa-arrow-right-long"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3>NPTEL: Design & Analysis of Algorithms</h3>
+                    <p>Certified in advanced algorithmic theory, asymptotic complexity analysis, dynamic programming, greedy methods, divide-and-conquer, and graph algorithms.</p>
+                </div>
+            </div>
+
+            <div class="cert-item">
+                <div class="cert-img-wrapper">
+                    <img src="portfolio_assets/NPTEL_SE_Certificate.png" alt="NPTEL: Software Engineering">
+                    <div class="cert-overlay">
+                        <a href="portfolio_assets/NPTEL_SE_Certificate.png" target="_blank" class="cert-overlay-link">
+                            <span>View Credentials</span>
+                            <i class="fa-solid fa-arrow-right-long"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3>NPTEL: Software Engineering</h3>
+                    <p>Certified in Software Development Life Cycle (SDLC), Agile practices, software architecture, design patterns, testing strategies, and quality assurance principles.</p>
+                </div>
+            </div>
+
+            <div class="cert-item">
+                <div class="cert-img-wrapper">
+                    <img src="portfolio_assets/Ethara_AI_Certificate.png" alt="Ethara AI: LLM Evaluation & Post-Training">
+                    <div class="cert-overlay">
+                        <a href="portfolio_assets/Ethara_AI_Certificate.png" target="_blank" class="cert-overlay-link">
+                            <span>View Credentials</span>
+                            <i class="fa-solid fa-arrow-right-long"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3>Ethara AI: LLM Benchmark & Evaluation</h3>
+                    <p>Demonstrated excellence in Post-LLM Training, comparative benchmarking, hallucination analysis, and structured annotation pipelines that improved evaluation efficiency by 68%.</p>
+                </div>
+            </div>
+
+            <div class="cert-item">
+                <div class="cert-img-wrapper">
+                    <img src="portfolio_assets/District_GK_Award.png" alt="District-Level General Knowledge Quiz">
+                    <div class="cert-overlay">
+                        <a href="portfolio_assets/District_GK_Award.png" target="_blank" class="cert-overlay-link">
+                            <span>View Credentials</span>
+                            <i class="fa-solid fa-arrow-right-long"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3>1st Place: District General Knowledge Quiz</h3>
+                    <p>Achieved 1st Place among competing collegiate institutions across the district, demonstrating intellectual agility, broad awareness, and cognitive performance under pressure.</p>
+                </div>
+            </div>
+
+            <div class="cert-item">
+                <div class="cert-img-wrapper">
+                    <img src="portfolio_assets/Chess_Tournament_Award.png" alt="Competitive Chess Tournament Champion">
+                    <div class="cert-overlay">
+                        <a href="portfolio_assets/Chess_Tournament_Award.png" target="_blank" class="cert-overlay-link">
+                            <span>View Credentials</span>
+                            <i class="fa-solid fa-arrow-right-long"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3>Champion: Competitive Chess Championship</h3>
+                    <p>Won competitive chess tournament, demonstrating advanced analytical thinking, strategic foresight, deep positional calculation, and decisive execution under time pressure.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <br>
+
+    <section class="profiles-section" id="profiles">
+        <h2 class="section-title">Web Presence - <span class="purple-text">Dev Network!</span></h2>
+        <div class="profile-header">
+            <div class="profile-img-main">
+                <img src="portfolio_assets/Tanishq_Portrait.jpg" alt="Tanishq Kale">
+            </div>
+            <div class="profile-text">
+                <p class="purple-text">@Tanishq-code1</p>
+            </div>
+        </div>
+
+        <div class="profiles-grid">
+
+            <a href="https://www.linkedin.com/in/tanishq-kale-profile/" target="_blank" rel="noopener noreferrer" class="profile-card">
+                <div class="profile-icon">
+                    <i class="fa-brands fa-linkedin" style="color: #0077b5;"></i>
+                </div>
+                <div class="profile-info">
+                    <h3>LinkedIn</h3>
+                    <p>Connect</p>
+                </div>
+            </a>
+
+            <a href="https://github.com/Tanishq-code1" target="_blank" rel="noopener noreferrer" class="profile-card">
+                <div class="profile-icon">
+                    <i class="fa-brands fa-github" style="color: #fff;"></i>
+                </div>
+                <div class="profile-info">
+                    <h3>GitHub</h3>
+                    <p>Commit</p>
+                </div>
+            </a>
+
+            <a href="https://leetcode.com/u/Tanishq-code1/" target="_blank" rel="noopener noreferrer" class="profile-card">
+                <div class="profile-icon">
+                    <i class="devicon-leetcode-plain colored"></i>
+                </div>
+                <div class="profile-info">
+                    <h3>LeetCode</h3>
+                    <p>Compete</p>
+                </div>
+            </a>
+
+            <a href="mailto:tanishqkale007@gmail.com" class="profile-card">
+                <div class="profile-icon">
+                    <i class="fa-solid fa-envelope" style="color: #a855f7;"></i>
+                </div>
+                <div class="profile-info">
+                    <h3>Email</h3>
+                    <p>Message</p>
+                </div>
+            </a>
+        </div>
+        <br>
+        <p class="profile-note">You can explore further by clicking on any of the profile cards above!</p>
+    </section>
+
+    <br>
+
+    <section class="contact-section" id="contact">
+        <div class="contact-container">
+            <h2 class="section-title">Get In Touch - <span class="purple-text">Ask Me Anything!</span></h2>
+            <h4 class="contact-note">Ready to collaborate or discuss AI engineering opportunities?<br> I'm always open to new projects, opportunities, and interesting conversations.</h4>
+            <div class="contact-card">
+                <div class="contact-email-bar">
+                    <span class="contact-email-label">Direct Contact:</span>
+                    <button type="button" class="copy-email-chip" id="copyEmailBtn" title="Click to copy email" aria-label="Copy email address to clipboard">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span id="emailText">tanishqkale007@gmail.com</span>
+                        <i class="fa-regular fa-copy copy-icon" id="copyIcon"></i>
+                    </button>
+                </div>
+                <form id="contactForm" class="contact-form" method="POST">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" required placeholder=" " autocomplete="off">
+                        <label for="name">Name</label>
+                        <i class="fa-solid fa-user input-icon"></i>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" required placeholder=" " autocomplete="off">
+                        <label for="email">Email</label>
+                        <i class="fa-solid fa-envelope input-icon"></i>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" rows="4" required placeholder=" "></textarea>
+                        <label for="message">Message</label>
+                        <i class="fa-solid fa-comment input-icon"></i>
+                    </div>
+                    <button type="submit" class="btn-resume btn-submit">
+                        <span>Send Message</span>
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <br>
+
+    <footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-brand">
+                <div class="footer-brand-title">
+                    <span class="nav-logo-mark small"><span class="logo-text">TK</span></span>
+                    <h2 class="footer-logo">Tanishq<span class="purple-text">Kale</span></h2>
+                </div>
+                <p class="footer-tagline">Exploring Agentic AI. Building What's Next.</p>
+            </div>
+
+            <ul class="footer-nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#profiles">Profiles</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+            <div class="footer-socials">
+                <a href="https://www.linkedin.com/in/tanishq-kale-profile/" target="_blank" rel="noopener noreferrer" class="social-link linkedin" aria-label="LinkedIn"><i
+                        class="fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com/Tanishq-code1" target="_blank" rel="noopener noreferrer" class="social-link github" aria-label="GitHub"><i
+                        class="fa-brands fa-github"></i></a>
+                <a href="mailto:tanishqkale007@gmail.com" class="social-link email" aria-label="Email"><i
+                        class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <button id="backToTop" class="back-to-top" aria-label="Back to Top">
+                <i class="fa-solid fa-arrow-up"></i>
+            </button>
+        </div>
+    </footer>
+
+    <!-- ============ IN-PAGE RESUME PDF VIEWER MODAL ============ -->
+    <div class="resume-modal-backdrop" id="resumeModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Resume Document Viewer" data-lenis-prevent>
+        <div class="resume-modal-dialog" data-lenis-prevent>
+            <div class="resume-modal-bar">
+                <div class="resume-modal-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+                    <span class="resume-filename">Tanishq_Resume.pdf</span>
+                    <span class="resume-badge">Latest 2026</span>
+                </div>
+                <div class="resume-modal-actions">
+                    <!-- Zoom Controls -->
+                    <div class="resume-zoom-controls" id="resumeZoomControls" aria-label="Resume Zoom Controls">
+                        <button type="button" class="resume-zoom-btn" id="resumeZoomOut" title="Zoom Out" aria-label="Zoom Out">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        </button>
+                        <span class="resume-zoom-level" id="resumeZoomLevel">100%</span>
+                        <button type="button" class="resume-zoom-btn" id="resumeZoomIn" title="Zoom In" aria-label="Zoom In">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        </button>
+                        <button type="button" class="resume-zoom-btn fit-btn" id="resumeZoomFit" title="Fit to Screen" aria-label="Fit to Screen">
+                            <span>Fit</span>
+                        </button>
+                    </div>
+
+                    <!-- Open Full in Browser Reader -->
+                    <a href="portfolio_assets/Tanishq_Resume.pdf" target="_blank" rel="noopener noreferrer" class="resume-modal-fullscreen-btn" title="Open in New Tab">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        <span class="btn-text">Open Full</span>
+                    </a>
+
+                    <!-- Download Button with Confetti Trigger -->
+                    <a href="portfolio_assets/Tanishq_Resume.pdf" download="Tanishq_Resume.pdf" class="resume-modal-download-btn" id="resumeModalDownloadBtn" title="Download PDF">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
+                        <span class="btn-text">Download</span>
+                    </a>
+
+                    <!-- Close Button -->
+                    <button class="resume-modal-close" id="closeResumeModalBtn" type="button" aria-label="Close resume preview">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Touch scrollable and zoomable PDF container -->
+            <div class="resume-modal-body" id="resumeModalBody" data-lenis-prevent>
+                <div class="resume-canvas-wrapper" id="resumeCanvasWrapper" data-lenis-prevent tabindex="0" role="region" aria-label="Resume Document Pages">
+                    <div id="resumeCanvasContainer" class="resume-canvas-container">
+                        <div class="resume-loading-spinner" id="resumeLoadingSpinner">
+                            <span class="spinner-circle"></span>
+                            <span>Rendering high-res document...</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fallback iframe for environments where PDF.js fails -->
+                <iframe src="portfolio_assets/Tanishq_Resume.pdf#toolbar=0&navpanes=0" class="resume-iframe" id="resumeIframeFallback" title="Tanishq Kale Resume Document" style="display: none;" data-lenis-prevent></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification for Micro-interactions -->
+    <div class="portfolio-toast" id="portfolioToast" role="status" aria-live="polite">
+        <i class="fa-solid fa-circle-check toast-icon"></i>
+        <span class="toast-message" id="toastMessage">Email copied to clipboard!</span>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script src="3d_background.js?v=2.2"></script>
+    <script src="script.js?v=2.2"></script>
+</body>
+
 </html>

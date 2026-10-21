@@ -315,6 +315,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Restore transitions
                     skillCards.forEach(card => card.style.transition = '');
 
+                    // Recalculate ScrollTrigger positions & Lenis bounds when layout changes
+                    if (window.ScrollTrigger) ScrollTrigger.refresh();
+                    if (window.lenis) window.lenis.resize();
+
                     // 3. Sequentially show new cards
                     cardsToShow.forEach((card, index) => {
                         setTimeout(() => {
@@ -326,6 +330,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const showDuration = cardsToShow.length * 60 + 400;
                     setTimeout(() => {
                         isFiltering = false;
+                        if (window.ScrollTrigger) ScrollTrigger.refresh();
+                        if (window.lenis) window.lenis.resize();
                     }, showDuration);
 
                 }, hideDuration);
@@ -537,4 +543,563 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial check
     checkNavVisibility();
+})();
+
+
+// ==========================================
+//  IN-PAGE RESUME PDF VIEWER (PDF.JS POWERED)
+// ==========================================
+(function () {
+    const resumeModal = document.getElementById('resumeModal');
+    const openResumeBtn = document.getElementById('openResumeBtn');
+    const closeResumeModalBtn = document.getElementById('closeResumeModalBtn');
+    const resumeCanvasWrapper = document.getElementById('resumeCanvasWrapper');
+    const resumeCanvasContainer = document.getElementById('resumeCanvasContainer');
+    const resumeLoadingSpinner = document.getElementById('resumeLoadingSpinner');
+    const resumeIframeFallback = document.getElementById('resumeIframeFallback');
+    const resumeZoomIn = document.getElementById('resumeZoomIn');
+    const resumeZoomOut = document.getElementById('resumeZoomOut');
+    const resumeZoomFit = document.getElementById('resumeZoomFit');
+    const resumeZoomLevel = document.getElementById('resumeZoomLevel');
+
+    let pdfDoc = null;
+    let pdfScale = 1.0;
+    let isRendering = false;
+    let pendingScale = null;
+    const pdfUrl = 'portfolio_assets/Tanishq_Resume.pdf';
+
+    function calculateFitScale(firstPage) {
+        if (!resumeCanvasWrapper || !firstPage) return 1.0;
+        const containerWidth = resumeCanvasWrapper.clientWidth - (window.innerWidth < 768 ? 16 : 48);
+        const unscaledViewport = firstPage.getViewport({ scale: 1.0 });
+        const scale = containerWidth / unscaledViewport.width;
+        return Math.max(0.45, Math.min(scale, 1.6));
+    }
+
+    function applyZoom(newScale) {
+        if (!pdfDoc) return;
+        const clamped = Math.min(Math.max(Number(newScale.toFixed(2)), 0.45), 2.75);
+        pdfScale = clamped;
+        if (isRendering) {
+            pendingScale = clamped;
+            return;
+        }
+        renderPdfPages();
+    }
+
+    function fitResume() {
+        if (!pdfDoc || !resumeCanvasWrapper) return;
+        pdfDoc.getPage(1).then(page => {
+            const fitScale = calculateFitScale(page);
+            applyZoom(fitScale);
+        });
+    }
+
+    function renderPdfPages() {
+        if (!pdfDoc || !resumeCanvasContainer) return;
+        isRendering = true;
+
+        let prevScrollRatio = 0;
+        if (resumeCanvasWrapper && resumeCanvasWrapper.scrollHeight > 0) {
+            prevScrollRatio = resumeCanvasWrapper.scrollTop / resumeCanvasWrapper.scrollHeight;
+        }
+
+        resumeCanvasContainer.innerHTML = '';
+
+        if (resumeZoomLevel) {
+            resumeZoomLevel.textContent = Math.round(pdfScale * 100) + '%';
+        }
+
+        const numPages = pdfDoc.numPages;
+        const renderPromises = [];
+
+        for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+            (function (pNum) {
+                const pPromise = pdfDoc.getPage(pNum).then(page => {
+                    const viewport = page.getViewport({ scale: pdfScale });
+                    const outputScale = Math.min(window.devicePixelRatio || 1, 2);
+
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+
+                    canvas.width = Math.floor(viewport.width * outputScale);
+                    canvas.height = Math.floor(viewport.height * outputScale);
+                    canvas.style.width = Math.floor(viewport.width) + 'px';
+                    canvas.style.height = Math.floor(viewport.height) + 'px';
+                    canvas.setAttribute('role', 'img');
+                    canvas.setAttribute('aria-label', 'Resume Document Page ' + pNum);
+
+                    const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
+
+                    const renderContext = {
+                        canvasContext: context,
+                        transform: transform,
+                        viewport: viewport
+                    };
+
+                    resumeCanvasContainer.appendChild(canvas);
+                    return page.render(renderContext).promise;
+                });
+                renderPromises.push(pPromise);
+            })(pageNum);
+        }
+
+        Promise.all(renderPromises).then(() => {
+            isRendering = false;
+            if (resumeLoadingSpinner && resumeLoadingSpinner.parentNode) {
+                resumeLoadingSpinner.parentNode.removeChild(resumeLoadingSpinner);
+            }
+            if (resumeCanvasWrapper && prevScrollRatio > 0) {
+                resumeCanvasWrapper.scrollTop = Math.round(prevScrollRatio * resumeCanvasWrapper.scrollHeight);
+            }
+            if (pendingScale !== null) {
+                const nextScale = pendingScale;
+                pendingScale = null;
+                applyZoom(nextScale);
+            }
+        }).catch(err => {
+            console.warn('PDF.js render warning:', err);
+            isRendering = false;
+            pendingScale = null;
+        });
+    }
+
+    function loadAndRenderPdf(forceReFit) {
+        if (!window.pdfjsLib) {
+            if (resumeIframeFallback) resumeIframeFallback.style.display = 'block';
+            if (resumeCanvasWrapper) resumeCanvasWrapper.style.display = 'none';
+            return;
+        }
+
+        if (!window.pdfjsLib.GlobalWorkerOptions.workerSrc) {
+            window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+
+        if (pdfDoc) {
+            if (forceReFit) {
+                pdfDoc.getPage(1).then(page => {
+                    pdfScale = calculateFitScale(page);
+                    renderPdfPages();
+                });
+            } else {
+                renderPdfPages();
+            }
+            return;
+        }
+
+        window.pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
+            pdfDoc = pdf;
+            return pdf.getPage(1);
+        }).then(firstPage => {
+            pdfScale = calculateFitScale(firstPage);
+            renderPdfPages();
+        }).catch(err => {
+            console.error('PDF.js loading failed, using iframe fallback:', err);
+            if (resumeIframeFallback) resumeIframeFallback.style.display = 'block';
+            if (resumeCanvasWrapper) resumeCanvasWrapper.style.display = 'none';
+        });
+    }
+
+    function openResumeModal() {
+        if (!resumeModal) return;
+        resumeModal.classList.add('open');
+        resumeModal.setAttribute('aria-hidden', 'false');
+        document.documentElement.classList.add('modal-open');
+        document.body.classList.add('modal-open');
+        document.body.style.overflow = 'hidden';
+
+        const cursorDot = document.querySelector('[data-cursor-dot], .cursor-dot');
+        const cursorOutline = document.querySelector('[data-cursor-outline], .cursor-outline');
+        if (cursorDot) cursorDot.style.display = 'none';
+        if (cursorOutline) cursorOutline.style.display = 'none';
+
+        if (window.lenis) {
+            window.lenis.stop();
+        }
+
+        if (resumeCanvasWrapper) {
+            resumeCanvasWrapper.scrollTop = 0;
+            resumeCanvasWrapper.scrollLeft = 0;
+        }
+
+        setTimeout(() => {
+            loadAndRenderPdf(true);
+            if (resumeCanvasWrapper) {
+                resumeCanvasWrapper.focus();
+            }
+        }, 60);
+    }
+
+    function closeResumeModal() {
+        if (!resumeModal) return;
+        resumeModal.classList.remove('open');
+        resumeModal.setAttribute('aria-hidden', 'true');
+        document.documentElement.classList.remove('modal-open');
+        document.body.classList.remove('modal-open');
+        document.body.style.overflow = '';
+
+        const cursorDot = document.querySelector('[data-cursor-dot], .cursor-dot');
+        const cursorOutline = document.querySelector('[data-cursor-outline], .cursor-outline');
+        if (cursorDot) cursorDot.style.display = '';
+        if (cursorOutline) cursorOutline.style.display = '';
+
+        if (window.lenis) {
+            window.lenis.start();
+        }
+    }
+
+    if (openResumeBtn) {
+        openResumeBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            openResumeModal();
+        });
+    }
+
+    if (closeResumeModalBtn) {
+        closeResumeModalBtn.addEventListener('click', closeResumeModal);
+    }
+
+    if (resumeZoomIn) {
+        resumeZoomIn.addEventListener('click', () => applyZoom(pdfScale + 0.25));
+    }
+
+    if (resumeZoomOut) {
+        resumeZoomOut.addEventListener('click', () => applyZoom(pdfScale - 0.25));
+    }
+
+    if (resumeZoomFit) {
+        resumeZoomFit.addEventListener('click', fitResume);
+    }
+
+    window.addEventListener('resize', () => {
+        if (resumeModal && resumeModal.classList.contains('open') && pdfDoc && !isRendering) {
+            pdfDoc.getPage(1).then(page => {
+                pdfScale = calculateFitScale(page);
+                renderPdfPages();
+            });
+        }
+    }, { passive: true });
+
+    if (resumeModal) {
+        resumeModal.addEventListener('click', function (e) {
+            if (e.target === resumeModal) closeResumeModal();
+        });
+
+        resumeModal.addEventListener('wheel', function (e) {
+            e.stopPropagation();
+            if (resumeCanvasWrapper && !resumeCanvasWrapper.contains(e.target)) {
+                e.preventDefault();
+                resumeCanvasWrapper.scrollTop += e.deltaY;
+                resumeCanvasWrapper.scrollLeft += e.deltaX;
+            }
+        }, { passive: false });
+    }
+
+    if (resumeCanvasWrapper) {
+        resumeCanvasWrapper.addEventListener('wheel', function (e) {
+            if (e.ctrlKey) {
+                e.preventDefault();
+                e.stopPropagation();
+                const delta = e.deltaY < 0 ? 0.15 : -0.15;
+                applyZoom(pdfScale + delta);
+                return;
+            }
+
+            e.stopPropagation();
+            const maxScrollTop = resumeCanvasWrapper.scrollHeight - resumeCanvasWrapper.clientHeight;
+            const atTop = resumeCanvasWrapper.scrollTop <= 0 && e.deltaY < 0;
+            const atBottom = resumeCanvasWrapper.scrollTop >= maxScrollTop - 1 && e.deltaY > 0;
+            if (atTop || atBottom) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    }
+
+    // Drag-to-pan across zoomed document
+    let isPanning = false;
+    let panStartX = 0;
+    let panStartY = 0;
+    let panScrollLeft = 0;
+    let panScrollTop = 0;
+
+    if (resumeCanvasWrapper) {
+        resumeCanvasWrapper.addEventListener('mousedown', function (e) {
+            if (e.button !== 0 || e.target.closest('button, a')) return;
+            isPanning = true;
+            resumeCanvasWrapper.classList.add('is-panning');
+            panStartX = e.pageX - resumeCanvasWrapper.offsetLeft;
+            panStartY = e.pageY - resumeCanvasWrapper.offsetTop;
+            panScrollLeft = resumeCanvasWrapper.scrollLeft;
+            panScrollTop = resumeCanvasWrapper.scrollTop;
+        });
+
+        window.addEventListener('mousemove', function (e) {
+            if (!isPanning || !resumeCanvasWrapper) return;
+            e.preventDefault();
+            const x = e.pageX - resumeCanvasWrapper.offsetLeft;
+            const y = e.pageY - resumeCanvasWrapper.offsetTop;
+            resumeCanvasWrapper.scrollLeft = panScrollLeft - (x - panStartX);
+            resumeCanvasWrapper.scrollTop = panScrollTop - (y - panStartY);
+        });
+
+        window.addEventListener('mouseup', function () {
+            if (isPanning && resumeCanvasWrapper) {
+                isPanning = false;
+                resumeCanvasWrapper.classList.remove('is-panning');
+            }
+        });
+    }
+
+    // Touch pinch-to-zoom
+    let touchPinchDist = null;
+    let touchPinchStartScale = 1.0;
+
+    function getTouchDistance(touches) {
+        if (!touches || touches.length < 2) return 0;
+        const dx = touches[0].clientX - touches[1].clientX;
+        const dy = touches[0].clientY - touches[1].clientY;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    if (resumeCanvasWrapper) {
+        resumeCanvasWrapper.addEventListener('touchstart', function (e) {
+            if (e.touches.length === 2) {
+                touchPinchDist = getTouchDistance(e.touches);
+                touchPinchStartScale = pdfScale;
+            }
+        }, { passive: true });
+
+        resumeCanvasWrapper.addEventListener('touchmove', function (e) {
+            if (e.touches.length === 2 && touchPinchDist) {
+                const currentDist = getTouchDistance(e.touches);
+                if (currentDist > 0) {
+                    e.preventDefault();
+                    const ratio = currentDist / touchPinchDist;
+                    applyZoom(touchPinchStartScale * ratio);
+                }
+            }
+        }, { passive: false });
+
+        resumeCanvasWrapper.addEventListener('touchend', function (e) {
+            if (e.touches.length < 2) {
+                touchPinchDist = null;
+            }
+        }, { passive: true });
+    }
+
+    window.addEventListener('keydown', function (e) {
+        if (resumeModal && resumeModal.classList.contains('open')) {
+            if (e.key === 'Escape') {
+                closeResumeModal();
+            } else if (e.key === '+' || e.key === '=') {
+                e.preventDefault();
+                applyZoom(pdfScale + 0.25);
+            } else if (e.key === '-' || e.key === '_') {
+                e.preventDefault();
+                applyZoom(pdfScale - 0.25);
+            } else if (e.key === '0' || e.key.toLowerCase() === 'f') {
+                e.preventDefault();
+                fitResume();
+            } else if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].indexOf(e.key) !== -1) {
+                if (resumeCanvasWrapper) {
+                    const step = (e.key === 'PageDown' || e.key === ' ') ? resumeCanvasWrapper.clientHeight * 0.8 :
+                               (e.key === 'PageUp') ? -resumeCanvasWrapper.clientHeight * 0.8 :
+                               (e.key === 'ArrowDown') ? 60 :
+                               (e.key === 'ArrowUp') ? -60 :
+                               (e.key === 'Home') ? -resumeCanvasWrapper.scrollHeight :
+                               (e.key === 'End') ? resumeCanvasWrapper.scrollHeight : 0;
+                    if (step !== 0) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        resumeCanvasWrapper.scrollTop += step;
+                    }
+                }
+            }
+        }
+    });
+
+    window.openResumeModal = openResumeModal;
+})();
+
+// ==========================================
+//  LENIS SMOOTH INERTIA SCROLLING (GSAP SYNC)
+// ==========================================
+(function () {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+    if (typeof window.Lenis === 'function' && !prefersReducedMotion && !isTouch) {
+        try {
+            const lenis = new window.Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                smooth: true,
+                smoothTouch: false,
+                touchMultiplier: 1.5,
+            });
+
+            if (window.ScrollTrigger) {
+                lenis.on('scroll', ScrollTrigger.update);
+                gsap.ticker.add((time) => {
+                    lenis.raf(time * 1000);
+                });
+                gsap.ticker.lagSmoothing(0);
+            } else {
+                function raf(time) {
+                    lenis.raf(time);
+                    requestAnimationFrame(raf);
+                }
+                requestAnimationFrame(raf);
+            }
+
+            window.lenis = lenis;
+
+            // Hook navbar links to Lenis scrollTo
+            const navLinks = document.querySelectorAll('.nav-link[data-section]');
+            navLinks.forEach((link) => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.dataset.section;
+                    const target = document.getElementById(targetId);
+                    if (target && window.lenis) {
+                        window.lenis.scrollTo(target, { offset: -20, duration: 1.2 });
+                    }
+                });
+            });
+
+            // Hook Back to Top button
+            const backToTopBtn = document.getElementById('backToTop');
+            if (backToTopBtn) {
+                backToTopBtn.addEventListener('click', (e) => {
+                    if (window.lenis) {
+                        e.preventDefault();
+                        window.lenis.scrollTo(0, { duration: 1.4 });
+                    }
+                });
+            }
+        } catch (err) {
+            console.warn('Lenis initialization skipped:', err);
+        }
+    }
+})();
+
+// ==========================================
+//  RESUME DOWNLOAD CONFETTI CELEBRATION
+// ==========================================
+(function () {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const downloadBtns = [
+        document.getElementById('resumeModalDownloadBtn'),
+        document.querySelector('.resume-modal-download-btn')
+    ].filter(Boolean);
+
+    function triggerConfetti() {
+        if (typeof confetti === 'function' && !prefersReducedMotion) {
+            confetti({
+                particleCount: 80,
+                spread: 70,
+                origin: { y: 0.75 },
+                colors: ['#36C9B4', '#168F80', '#145B54', '#DCE5E7', '#ffffff'],
+                disableForReducedMotion: true
+            });
+        }
+    }
+
+    downloadBtns.forEach((btn) => {
+        btn.addEventListener('click', triggerConfetti);
+    });
+
+    window.triggerResumeConfetti = triggerConfetti;
+})();
+
+// ==========================================
+//  ONE-CLICK COPY EMAIL WITH TOAST FEEDBACK
+// ==========================================
+(function () {
+    const copyEmailBtn = document.getElementById('copyEmailBtn');
+    const emailText = document.getElementById('emailText');
+    const copyIcon = document.getElementById('copyIcon');
+    const toast = document.getElementById('portfolioToast');
+    const toastMsg = document.getElementById('toastMessage');
+    let toastTimeout = null;
+
+    function showToast(message) {
+        if (!toast) return;
+        if (toastMsg) toastMsg.textContent = message || 'Copied to clipboard!';
+        toast.classList.add('show');
+
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+            toast.classList.remove('show');
+        }, 2600);
+    }
+
+    function copyEmailToClipboard() {
+        const email = (emailText && emailText.textContent) ? emailText.textContent.trim() : 'tanishqkale007@gmail.com';
+
+        function onSuccess() {
+            if (copyEmailBtn) copyEmailBtn.classList.add('copied');
+            if (copyIcon) {
+                copyIcon.className = 'fa-solid fa-check copy-icon';
+            }
+            showToast('Email address copied to clipboard!');
+
+            setTimeout(() => {
+                if (copyEmailBtn) copyEmailBtn.classList.remove('copied');
+                if (copyIcon) {
+                    copyIcon.className = 'fa-regular fa-copy copy-icon';
+                }
+            }, 2200);
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(email).then(onSuccess).catch(() => {
+                fallbackCopy(email, onSuccess);
+            });
+        } else {
+            fallbackCopy(email, onSuccess);
+        }
+    }
+
+    function fallbackCopy(text, callback) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            if (callback) callback();
+        } catch (err) {
+            console.error('Fallback copy failed:', err);
+        }
+        document.body.removeChild(textArea);
+    }
+
+    if (copyEmailBtn) {
+        copyEmailBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            copyEmailToClipboard();
+        });
+    }
+
+    window.showPortfolioToast = showToast;
+})();
+
+// ==========================================
+//  DYNAMIC BROWSER TAB TITLE ON BLUR
+// ==========================================
+(function () {
+    const originalTitle = document.title;
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            document.title = "Come back to Tanishq's Portfolio! 👋";
+        } else {
+            document.title = originalTitle;
+        }
+    });
 })();
